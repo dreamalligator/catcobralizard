@@ -1,5 +1,7 @@
 # [catcobralizard](https://catcobralizard.com)
 
+![build-status](https://travis-ci.org/nebulousdog/catcobralizard.svg?branch=master)
+
 plants, code, mopeds, maybe some bad art.
 
 ## Clone Repo
