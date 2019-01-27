@@ -18,6 +18,7 @@ def deploy_droplet(token):
         'image': 'ghost-18-04'
     }
 
+    print('deploying new droplet...')
     requests.post('https://api.digitalocean.com/v2/droplets', headers=headers, params=droplet_info)
 
 if __name__ == '__main__':

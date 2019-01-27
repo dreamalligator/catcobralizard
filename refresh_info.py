@@ -42,18 +42,24 @@ def refresh_droplet_cache(token):
         'Content-Type': 'application/json'
     }
 
-    if os.path.isfile(cached_droplet_info_file):
-        print('using cached droplet info...')
-    else:
-        print('no droplet info found, attempting to retrieve catcobralizard info...')
+    print('attempting to retrieve catcobralizard info...')
 
-        request = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers)
+    request = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers)
 
-        for droplet in request.json()['droplets']:
-            if droplet['name'] == 'catcobralizard':
-                with open(cached_droplet_info_file, 'w') as info_f:
-                    info_f.write(json.dumps(droplet))
-                break
+    for droplet in request.json()['droplets']:
+        if droplet['name'] == 'catcobralizard':
+            with open(cached_droplet_info_file, 'w') as info_f:
+                info_f.write(json.dumps(droplet))
+            break
+
+def get_droplet_id():
+    """get droplet id from cached info, prevents unnecessary requests."""
+
+    cached_droplet_info_file = 'droplet_info.json'
+
+    with open(cached_droplet_info_file, 'r') as info_f:
+        droplet_info = json.load(info_f)
+        return droplet_info['id']
 
 if __name__ == '__main__':
     refresh_droplet_cache(retrieve_token())
