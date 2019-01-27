@@ -21,8 +21,8 @@ def retrieve_token():
     else:
         digitalocean_token = input(
             '''Digital Ocean API token not found, retrieve your token from digitalocean.
-    visit https://cloud.digitalocean.com/account/api/tokens.
-    enter token: '''
+visit https://cloud.digitalocean.com/account/api/tokens.
+enter token: '''
         )
 
         with open(token_file_name, 'w') as token_f:
