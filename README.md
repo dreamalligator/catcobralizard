@@ -46,14 +46,6 @@ destroys droplet
 python ./destroy.py
 ```
 
-## Backup
-
-creates a droplet snapshot
-
-```bash
-python backup.py
-```
-
 ## License
 
 MIT
