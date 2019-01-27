@@ -55,4 +55,5 @@ def refresh_droplet_cache(token):
                     info_f.write(json.dumps(droplet))
                 break
 
-refresh_droplet_cache(retrieve_token())
+if __name__ == '__main__':
+    refresh_droplet_cache(retrieve_token())
