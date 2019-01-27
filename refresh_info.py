@@ -46,11 +46,18 @@ def refresh_droplet_cache(token):
 
     request = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers)
 
+    refreshed = False
     for droplet in request.json()['droplets']:
         if droplet['name'] == 'catcobralizard':
             with open(cached_droplet_info_file, 'w') as info_f:
                 info_f.write(json.dumps(droplet))
+            droplet_id = droplet['id']
+            print(f'saving info for droplet {droplet_id}...')
+            refreshed = True
             break
+
+    if not refreshed:
+        print('no catcobralizard droplets found.')
 
 def get_droplet_id():
     """get droplet id from cached info, prevents unnecessary requests."""

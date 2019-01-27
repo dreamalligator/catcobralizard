@@ -14,18 +14,24 @@ cd ~/projects/catcobralizard
 
 ## Install Deps
 
-install node deps
+Install Node deps.
 
 ```bash
 yarn
 ```
 
-## Deploy
-
-deploys a digitalocean ghost droplet  
+Python 3.6+ expected.
 
 ```bash
-bash ./deploy.sh
+pip install requests pylint
+```
+
+## Deploy
+
+deploys a Digital Ocean Ghost droplet  
+
+```bash
+python ./deploy.py
 ```
 
 refs:
@@ -37,7 +43,7 @@ refs:
 destroys droplet
 
 ```bash
-bash ./destroy.sh
+python ./destroy.py
 ```
 
 ## Backup
@@ -45,7 +51,7 @@ bash ./destroy.sh
 creates a droplet snapshot
 
 ```bash
-bash ./backup.sh
+python backup.py
 ```
 
 ## License
