@@ -32,6 +32,7 @@ deploys a Digital Ocean Ghost droplet
 
 ```bash
 python ./deploy.py
+python ./refresh_info.py # optionally refresh cached info
 ```
 
 refs:
@@ -43,6 +44,7 @@ refs:
 destroys droplet
 
 ```bash
+python ./refresh_info.py # optionally refresh cached info
 python ./destroy.py
 ```
 
