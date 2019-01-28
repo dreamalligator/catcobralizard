@@ -36,7 +36,6 @@ python ./refresh_info.py # optionally refresh cached info
 ```
 
 refs:
-* https://www.digitalocean.com/docs/one-clicks/ghost/
 * https://www.digitalocean.com/community/tutorials/how-to-configure-and-maintain-ghost-from-the-command-line
 
 ## Destroy
