@@ -77,7 +77,7 @@ def get_droplet_ip():
         droplet_info = json.load(info_f)
         return droplet_info['networks']['v4'][0]['ip_address']
 
-def get_key_id(token):
+def get_key_ids(token):
     """get a key to embed when making a new droplet."""
 
     headers = {
@@ -87,7 +87,7 @@ def get_key_id(token):
 
     request = requests.get('https://api.digitalocean.com/v2/account/keys', headers=headers)
 
-    return request.json()['ssh_keys'][0]['id']
+    return list(map(lambda key: key['id'], request.json()['ssh_keys']))
 
 if __name__ == '__main__':
     refresh_droplet_cache(retrieve_token())
