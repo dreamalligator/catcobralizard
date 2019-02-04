@@ -1,7 +1,7 @@
 """deploy a fresh catcobralizard instance"""
 
 import requests
-from refresh_info import retrieve_token
+from refresh_info import retrieve_token, get_key_ids
 
 def deploy_droplet(token):
     """deploy a new droplet"""
@@ -15,7 +15,8 @@ def deploy_droplet(token):
         'name': 'catcobralizard',
         'region': 'sfo2',
         'size': '4gb',
-        'image': 'ghost-18-04'
+        'image': 'ghost-18-04',
+        'ssh_keys': get_key_ids(token)
     }
 
     print('deploying new droplet...')
