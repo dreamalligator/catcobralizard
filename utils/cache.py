@@ -1,12 +1,11 @@
 """
-Refresh droplet info.
-
-requires a saved token, or retreiving it from https://cloud.digitalocean.com/account/api/tokens.
+Cache your token and save droplet info to reference without additional queries.
 """
 
 import os.path
 import json
 import requests
+from utils.requests import headers
 
 def retrieve_token():
     """check if have a saved Digital Ocean API token, or retreive one."""
@@ -33,18 +32,17 @@ enter token: '''
     return digitalocean_token
 
 def refresh_droplet_cache(token):
-    """check if have saved catcobralizard droplet info, or retrieve it."""
+    """
+    check if have saved catcobralizard droplet info, or retrieve it.
+
+    see https://cloud.digitalocean.com/account/api/tokens.
+    """
 
     cached_droplet_info_file = 'droplet_info.json'
 
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
-    }
-
     print('attempting to retrieve catcobralizard info...')
 
-    request = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers)
+    request = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers(token))
 
     refreshed = False
     for droplet in request.json()['droplets']:
@@ -58,36 +56,6 @@ def refresh_droplet_cache(token):
 
     if not refreshed:
         print('no catcobralizard droplets found.')
-
-def get_droplet_id():
-    """get droplet id from cached info, prevents unnecessary requests."""
-
-    cached_droplet_info_file = 'droplet_info.json'
-
-    with open(cached_droplet_info_file, 'r') as info_f:
-        droplet_info = json.load(info_f)
-        return droplet_info['id']
-
-def get_droplet_ip():
-    """get droplet ip from cache."""
-
-    cached_droplet_info_file = 'droplet_info.json'
-
-    with open(cached_droplet_info_file, 'r') as info_f:
-        droplet_info = json.load(info_f)
-        return droplet_info['networks']['v4'][0]['ip_address']
-
-def get_key_ids(token):
-    """get a key to embed when making a new droplet."""
-
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
-    }
-
-    request = requests.get('https://api.digitalocean.com/v2/account/keys', headers=headers)
-
-    return list(map(lambda key: key['id'], request.json()['ssh_keys']))
 
 if __name__ == '__main__':
     refresh_droplet_cache(retrieve_token())

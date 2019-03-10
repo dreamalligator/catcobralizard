@@ -23,8 +23,12 @@ yarn
 Python 3.6+ expected.
 
 ```bash
-pip install requests pylint
+pip install paramiko pylint requests
 ```
+
+* `paramiko` http://docs.paramiko.org
+* `pylint` http://pylint.pycqa.org/en/latest/
+* `requests` http://docs.python-requests.org
 
 ## Deploy
 
@@ -32,7 +36,7 @@ deploys a Digital Ocean Ghost droplet
 
 ```bash
 python ./deploy.py
-python ./refresh_info.py # optionally refresh cached info
+python ./utils/cache.py # optionally refresh cached info
 ```
 
 refs:
@@ -43,7 +47,7 @@ refs:
 destroys droplet
 
 ```bash
-python ./refresh_info.py # optionally refresh cached info
+python ./utils/cache.py # optionally refresh cached info
 python ./destroy.py
 ```
 

@@ -1,15 +1,12 @@
 """take down a catcobralizard instance"""
 
 import requests
-from refresh_info import get_droplet_id, retrieve_token
+from utils.droplets import get_droplet_id
+from utils.requests import headers
+from utils.cache import retrieve_token
 
 def destroy_droplet(token):
     """destroy a droplet"""
-
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json'
-    }
 
     droplet_id = get_droplet_id()
     params = {
@@ -18,7 +15,7 @@ def destroy_droplet(token):
 
     print(f'destroying droplet {droplet_id}...')
     url = 'https://api.digitalocean.com/v2/droplets'
-    request = requests.delete(url, headers=headers, params=params)
+    request = requests.delete(url, headers=headers(token), params=params)
 
     # see https://github.com/requests/requests/blob/master/requests/status_codes.py
     # pylint: disable=E1101
